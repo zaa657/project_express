@@ -1,0 +1,229 @@
+========================================================================
+           CATATAN PENJELASAN STRUKTUR FOLDER & FILE PROYEK
+                 (Express.js + MySQL + JWT + Zod + Cloudinary)
+========================================================================
+
+Dokumen ini menjelaskan kegunaan setiap folder dan file dalam proyek ini
+menggunakan kalimat yang sederhana dan mudah dipahami.
+
+
+------------------------------------------------------------------------
+1. PETA STRUKTUR FOLDER & FILE
+------------------------------------------------------------------------
+
+project_express/
+│
+├── .env                       --> Tempat menyimpan data rahasia/konfigurasi
+├── .env.example               --> Contoh format isi file .env
+├── package.json               --> Catatan library dan perintah (npm run dev)
+├── tsconfig.json              --> Pengaturan bahasa TypeScript
+│
+├── public/                    --> Tampilan Frontend (HTML murni + Tailwind CSS)
+│   ├── index.html             --> Halaman utama (Katalog Produk, Search, Dark/Light Mode)
+│   ├── login.html             --> Halaman Masuk Akun (Login)
+│   ├── register.html          --> Halaman Pendaftaran Akun Baru
+│   ├── tambah-produk.html     --> Halaman Tambah Produk + Preview & Upload Foto
+│   └── uploads/               --> Folder cadangan simpan gambar di komputer lokal
+│
+└── src/                       --> Pusat seluruh kode backend
+    ├── server.ts              --> Pintu masuk utama untuk menyalakan server
+    ├── app.ts                 --> Pengatur middleware dan rute Express
+    │
+    ├── config/                --> Folder konfigurasi & koneksi
+    │   ├── database.ts        --> Penghubung aplikasi ke database MySQL
+    │   └── env.ts             --> Pembaca isi file .env
+    │
+    ├── controllers/           --> Folder penerima request & pengirim respon
+    │   ├── auth.controller.ts --> Mengatur alur login, register, dan profil
+    │   └── product.controller.ts --> Mengatur alur CRUD produk & upload foto
+    │
+    ├── middlewares/           --> Folder penjaga keamanan / perantara
+    │   ├── auth.middleware.ts --> Memeriksa token JWT & hak akses (Admin/User)
+    │   ├── validate.middleware.ts --> Memeriksa format data input pakai Zod
+    │   ├── upload.middleware.ts   --> Menangkap kiriman file gambar (Multer)
+    │   └── error.middleware.ts    --> Penangkal error agar server tidak mati
+    │
+    ├── models/                --> Folder perintah langsung ke tabel MySQL
+    │   ├── user.model.ts      --> Perintah SQL untuk tabel 'users'
+    │   └── product.model.ts   --> Perintah SQL untuk tabel 'products'
+    │
+    ├── routes/                --> Folder penentu alamat URL (Endpoint)
+    │   ├── auth.routes.ts     --> Alamat URL untuk akun (/api/auth)
+    │   ├── product.routes.ts  --> Alamat URL untuk produk (/api/products)
+    │   ├── admin.routes.ts    --> Alamat URL khusus Admin (/api/admin)
+    │   └── index.ts           --> Pengumpul semua URL menjadi satu pintu
+    │
+    ├── schemas/               --> Folder aturan validasi Zod
+    │   ├── auth.schema.ts     --> Syarat data login & register (panjang teks dll)
+    │   └── product.schema.ts  --> Syarat data produk (harga angka, nama teks dll)
+    │
+    ├── services/              --> Folder pemikir logika bisnis
+    │   ├── auth.service.ts    --> Logika mencocokkan password & membuat JWT
+    │   ├── product.service.ts --> Logika kepemilikan produk (cek hak edit/hapus)
+    │   └── storage.service.ts --> Pengirim foto ke Cloudinary
+    │
+    ├── types/                 --> Folder definisi tipe data TypeScript
+    │   └── auth.ts            --> Catatan tipe data User dan Token
+    │
+    └── utils/                 --> Folder alat bantu serbaguna
+        ├── jwt.ts             --> Alat pembuat dan pembongkar token JWT
+        ├── password.ts        --> Alat pengacak password (hash bcrypt)
+        └── response.ts        --> Alat penyeragam format respon JSON
+
+
+------------------------------------------------------------------------
+2. PENJELASAN RINCI SETIAP FILE
+------------------------------------------------------------------------
+
+A. FILE DI BAGIAN UTAMA (ROOT)
+1. .env
+   Menyimpan data sensitif seperti port server (3000), username & password
+   database MySQL, kata kunci rahasia JWT, dan kunci API Cloudinary.
+
+2. package.json
+   Daftar seluruh alat/library yang diinstal (seperti express, mysql2,
+   jsonwebtoken, zod, cloudinary, multer) dan perintah untuk menjalankan
+   aplikasi yaitu "npm run dev".
+
+3. tsconfig.json
+   File konfigurasi agar komputer mengerti kode bahasa TypeScript yang kita
+   tulis dan bisa mengeksekusinya dengan cepat.
+
+4. README.md
+   Panduan ringkas yang bisa dibuka saat ingin menguji login, register,
+   crud produk, dan upload foto di Postman.
+
+
+B. FILE DI DALAM FOLDER "src/"
+1. server.ts
+   File yang pertama kali dijalankan oleh "npm run dev". Tugasnya memastikan
+   koneksi ke database MySQL sudah berhasil, lalu mengaktifkan server di port 3000.
+
+2. app.ts
+   Pusat perakitan aplikasi Express. Di sini middleware seperti pembaca JSON,
+   CORS, dan rute-rute API dipasang.
+
+
+C. FOLDER "src/config/"
+1. database.ts
+   Mengatur jalur koneksi (*pool*) ke database MySQL lokal Anda
+   (database: project_express). File ini juga otomatis membuat tabel 'users'
+   dan 'products' jika belum ada di MySQL.
+
+2. env.ts
+   Membaca variabel dari file .env lalu menyediakannya dalam bentuk objek yang
+   rapi agar mudah dipakai oleh file-file lain.
+
+
+D. FOLDER "src/routes/" (Jalan Masuk / URL)
+1. auth.routes.ts
+   Menentukan alamat URL untuk login (/login), daftar akun baru (/register),
+   dan cek profil (/me).
+
+2. product.routes.ts
+   Menentukan alamat URL untuk melihat produk, menambah produk baru, mengedit,
+   dan menghapus produk.
+
+3. admin.routes.ts
+   Menentukan alamat URL rahasia yang hanya bisa dibuka oleh Admin, contohnya
+   melihat seluruh daftar user yang terdaftar di MySQL.
+
+4. index.ts
+   Menggabungkan semua rute di atas sehingga semua URL diawali dengan "/api".
+
+
+E. FOLDER "src/middlewares/" (Penjaga Keamanan)
+1. auth.middleware.ts
+   - Fungsi 'authenticate': Memeriksa apakah pengirim membawa token JWT yang sah.
+   - Fungsi 'authorize': Memeriksa apakah peran pengguna (Admin/User) berhak
+     membuka fitur tertentu.
+
+2. validate.middleware.ts
+   Secara otomatis mengecek data yang dikirim user apakah sudah sesuai dengan
+   aturan Zod. Jika salah (misal email tidak valid), akan langsung ditolak dengan
+   pesan yang jelas.
+
+3. upload.middleware.ts
+   Memakai library Multer untuk menangkap file foto kiriman user dari Postman,
+   memastikan formatnya benar (gambar JPG/PNG), dan ukurannya di bawah 5MB.
+
+4. error.middleware.ts
+   Menjaga agar server tetap hidup jika terjadi kesalahan mendadak, serta
+   memberikan balasan pesan error 404 jika URL tidak ditemukan.
+
+
+F. FOLDER "src/schemas/" (Buku Aturan Zod)
+1. auth.schema.ts
+   Aturan untuk data akun: Nama minimal 2 karakter, format email harus benar,
+   dan password minimal 6 karakter.
+
+2. product.schema.ts
+   Aturan untuk data produk: Nama produk minimal 3 karakter, harga harus angka
+   di atas 0, dan deskripsi tidak boleh kosong.
+
+
+G. FOLDER "src/controllers/" (Penerima Tamu)
+1. auth.controller.ts
+   Menerima permintaan login/register dari user, menyuruh service bekerja, lalu
+   mengirimkan balasan JSON (berhasil atau gagal).
+
+2. product.controller.ts
+   Menerima data produk dan file foto dari Postman, lalu membalas hasil simpan
+   ke user.
+
+
+H. FOLDER "src/services/" (Dapur Logika Bisnis)
+1. auth.service.ts
+   Memeriksa apakah email sudah terdaftar, mencocokkan password yang diinput
+   dengan password yang diacak di database, dan mencetak token JWT.
+
+2. product.service.ts
+   Menjaga kepemilikan produk: Memastikan hanya pembuat produk atau Admin yang
+   boleh mengedit atau menghapus produk tersebut.
+
+3. storage.service.ts
+   Menerima file gambar lalu mengunggahnya langsung ke Cloudinary melalui
+   internet, serta menghapus gambar lama jika produk diganti fotonya.
+
+
+I. FOLDER "src/models/" (Pengolah Database Langsung)
+1. user.model.ts
+   Tempat menulis perintah SQL (SELECT, INSERT) untuk mengambil dan menyimpan
+   data pengguna di tabel MySQL 'users'.
+
+2. product.model.ts
+   Tempat menulis perintah SQL (SELECT, INSERT, UPDATE, DELETE) untuk mengelola
+   data barang di tabel MySQL 'products'.
+
+
+J. FOLDER "src/utils/" & "src/types/" (Alat Pendukung)
+1. jwt.ts
+   Membuat token rahasia (sign) saat user login dan membaca isi token (verify).
+
+2. password.ts
+   Mengubah password biasa menjadi kode acak (hash bcrypt) agar aman saat disimpan
+   di database MySQL.
+
+3. response.ts
+   Fungsi pembungkus agar semua balasan JSON memiliki format yang rapi dan konsisten
+   ({ success: true/false, message, data }).
+
+4. auth.ts (di folder types)
+   Mendefinisikan tipe data TypeScript untuk User, Role ('user' | 'admin'), dan
+   struktur token JWT.
+
+
+------------------------------------------------------------------------
+3. CONTOH SEDERHANA ALUR KERJA APLIKASI
+------------------------------------------------------------------------
+
+Saat Anda mengirim request Tambah Produk dari Postman:
+1. URL ditangkap oleh "routes/product.routes.ts".
+2. Diperiksa oleh "middlewares/auth.middleware.ts" (Apakah user sudah login bawa JWT?).
+3. Diperiksa oleh "middlewares/upload.middleware.ts" (Menangkap file fotonya).
+4. Diperiksa oleh "middlewares/validate.middleware.ts" (Apakah nama dan harga valid sesuai Zod?).
+5. Diterima oleh "controllers/product.controller.ts".
+6. Foto diunggah ke Cloudinary oleh "services/storage.service.ts".
+7. Data disimpan ke database MySQL oleh "models/product.model.ts".
+8. Respon sukses dikirim balik ke Postman Anda.
+========================================================================

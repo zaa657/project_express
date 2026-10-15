@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akun Saya — Store Ari</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 min-h-screen flex flex-col justify-between transition-colors duration-200 pb-16 md:pb-0">
+
+  <!-- ================= TOP UNIFIED NAVBAR ================= -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0 group">
+        <div class="w-9 h-9 rounded-xl overflow-hidden shadow-sm border border-zinc-200 dark:border-zinc-800 group-hover:scale-105 transition-transform flex-shrink-0 bg-white">
+          <img src="logo.jpg" alt="Store Ari" class="w-full h-full object-cover">
+        </div>
+        <span class="font-bold tracking-tight text-base sm:text-lg">STORE <span class="text-zinc-400 dark:text-zinc-500 font-normal">ARI</span></span>
+      </a>
+
+      <!-- Desktop Navigation Menu (With Matching Icons) -->
+      <nav class="hidden md:flex items-center gap-1.5 flex-shrink-0">
+        <!-- Katalog -->
+        <a href="index.html" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+          </svg>
+          <span>Katalog</span>
+        </a>
+
+        <!-- Tambah Produk -->
+        <a href="tambah-produk.html" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>Tambah Produk</span>
+        </a>
+
+        <!-- Akun Saya (Active) -->
+        <a href="akun.html" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          <span>Akun Saya</span>
+        </a>
+      </nav>
+
+      <!-- Right Controls -->
+      <div class="flex items-center gap-2.5">
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" title="Ganti Tema" class="p-2 rounded-xl text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 transition">
+          <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+          <svg id="moonIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+        </button>
+
+        <!-- Logout Button -->
+        <button onclick="logout()" title="Keluar" class="p-2 rounded-xl text-zinc-400 hover:text-red-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 transition flex items-center justify-center">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border-t border-zinc-200 dark:border-zinc-800 px-6 py-2.5 flex items-center justify-around shadow-lg">
+    <a href="index.html" class="flex flex-col items-center gap-1 text-[11px] font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+      <span>Katalog</span>
+    </a>
+    <a href="tambah-produk.html" class="flex flex-col items-center gap-1 text-[11px] font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span>Tambah</span>
+    </a>
+    <a href="akun.html" class="flex flex-col items-center gap-1 text-[11px] font-semibold text-zinc-900 dark:text-white">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+      <span>Akun</span>
+    </a>
+  </nav>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1">
+    
+    <!-- Profile Banner Card -->
+    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 mb-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        
+        <div class="flex items-center gap-4">
+          <!-- Avatar Icon -->
+          <div id="userAvatar" class="w-16 h-16 rounded-2xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center shadow-sm flex-shrink-0">
+            <svg class="w-8 h-8 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <h1 id="userName" class="text-xl sm:text-2xl font-bold tracking-tight">Memuat...</h1>
+              <span id="userRoleBadge" class="px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                USER
+              </span>
+            </div>
+            <p id="userEmail" class="text-xs text-zinc-500 dark:text-zinc-400">email@example.com</p>
+            <p id="userDate" class="text-[11px] text-zinc-400 mt-1">Bergabung sejak: -</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <a href="tambah-produk.html" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 hover:opacity-90 transition shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Tambah Produk
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Alert Message -->
+    <div id="statusAlert" class="hidden mb-6 p-4 rounded-xl text-sm border"></div>
+
+    <!-- Navigation Tabs -->
+    <div class="flex items-center gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-3 mb-6">
+      <button id="tabMyProducts" onclick="switchTab('myProducts')" class="px-4 py-2 text-xs font-semibold rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 transition flex items-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+        <span>Produk Saya (<span id="myProductCount">0</span>)</span>
+      </button>
+      <button id="tabUsers" onclick="switchTab('users')" class="hidden px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 transition flex items-center gap-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        <span>Kelola Semua User (Admin)</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: MY PRODUCTS -->
+    <section id="sectionMyProducts">
+      <div id="myProductsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="col-span-full py-12 text-center text-sm text-zinc-400">Memuat produk Anda...</div>
+      </div>
+    </section>
+
+    <!-- TAB 2: ADMIN USERS TABLE -->
+    <section id="sectionUsers" class="hidden">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-sm">
+        <div class="p-4 border-b border-zinc-200 dark:border-zinc-800">
+          <h2 class="text-sm font-bold tracking-tight">Daftar Seluruh Pengguna MySQL</h2>
+          <p class="text-xs text-zinc-400">Data ini hanya bisa diakses oleh akun dengan Role Admin.</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-zinc-50 dark:bg-zinc-800/50 text-zinc-500 uppercase tracking-wider text-[10px]">
+              <tr>
+                <th class="py-3 px-4">Nama</th>
+                <th class="py-3 px-4">Email</th>
+                <th class="py-3 px-4">Peran (Role)</th>
+                <th class="py-3 px-4">Terdaftar</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody" class="divide-y divide-zinc-200 dark:divide-zinc-800">
+              <tr><td colspan="4" class="p-4 text-center text-zinc-400">Memuat data...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= EDIT PRODUCT MODAL ================= -->
+  <div id="editModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl max-w-lg w-full p-6 shadow-xl">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base font-bold">Edit Produk</h3>
+        <button onclick="closeEditModal()" class="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="editProductForm" class="space-y-3.5">
+        <input type="hidden" id="editProductId" />
+        
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1">Nama Produk</label>
+          <input id="editName" type="text" required class="w-full px-3 py-2 text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 focus:outline-none" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1">Kategori</label>
+            <input id="editCategory" type="text" required class="w-full px-3 py-2 text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1">Harga (IDR)</label>
+            <input id="editPrice" type="number" required class="w-full px-3 py-2 text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 focus:outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1">Deskripsi</label>
+          <textarea id="editDescription" rows="3" required class="w-full px-3 py-2 text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 focus:outline-none"></textarea>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="closeEditModal()" class="px-4 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300">
+            Batal
+          </button>
+          <button id="saveEditBtn" type="submit" class="px-4 py-2 text-xs font-semibold rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-950">
+            Simpan Perubahan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="py-4 text-center text-[11px] text-zinc-400">
+    Store Ari &copy; 2026
+  </footer>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // Smart API Base URL: Auto-detects port 3000 vs Live Server port 5500
+    const API_BASE = window.location.port === '3000' ? '' : 'http://localhost:3000';
+
+    // Theme toggle
+    const htmlEl = document.documentElement;
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        htmlEl.classList.add('dark');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        htmlEl.classList.remove('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    const savedTheme = localStorage.getItem('theme');
+    applyTheme(savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+    themeBtn.addEventListener('click', () => applyTheme(!htmlEl.classList.contains('dark')));
+
+    function formatRupiah(num) {
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+    }
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Sesi Anda telah berakhir. Silakan login kembali.');
+      window.location.href = 'login.html';
+    }
+
+    let currentUser = null;
+    let allProducts = [];
+
+    async function initAccount() {
+      try {
+        const res = await fetch(`${API_BASE}/api/auth/me`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (!data.success || !data.data) {
+          localStorage.removeItem('token');
+          window.location.href = 'login.html';
+          return;
+        }
+
+        currentUser = data.data;
+        document.getElementById('userName').innerText = currentUser.name;
+        document.getElementById('userEmail').innerText = currentUser.email;
+        document.getElementById('userDate').innerText = `Terdaftar: ${new Date(currentUser.createdAt).toLocaleDateString('id-ID')}`;
+
+        const roleBadge = document.getElementById('userRoleBadge');
+        const avatarEl = document.getElementById('userAvatar');
+
+        if (currentUser.role === 'admin') {
+          avatarEl.innerHTML = `
+            <svg class="w-8 h-8 text-amber-500 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          `;
+          roleBadge.className = 'px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase rounded-md bg-zinc-900 text-white dark:bg-white dark:text-zinc-950';
+          roleBadge.innerText = 'ADMINISTRATOR';
+          document.getElementById('tabUsers').classList.remove('hidden');
+          loadAdminUsers();
+        } else {
+          avatarEl.innerHTML = `
+            <svg class="w-8 h-8 text-zinc-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+          `;
+          roleBadge.innerText = 'USER';
+        }
+
+        await loadMyProducts();
+      } catch (err) {
+        alert('Gagal memuat profil akun. Pastikan server backend aktif di http://localhost:3000');
+      }
+    }
+
+    function getFullImageUrl(url) {
+      if (!url) return null;
+      if (url.startsWith('http://') || url.startsWith('https://')) return url;
+      return `${API_BASE}${url}`;
+    }
+
+    async function loadMyProducts() {
+      try {
+        const res = await fetch(`${API_BASE}/api/products`);
+        const data = await res.json();
+        allProducts = data.data || [];
+
+        // If admin, show all products with manage options. If user, show own products.
+        const myProducts = currentUser.role === 'admin'
+          ? allProducts
+          : allProducts.filter(p => p.userId === currentUser.id);
+
+        document.getElementById('myProductCount').innerText = myProducts.length;
+        const grid = document.getElementById('myProductsGrid');
+
+        if (myProducts.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full py-16 text-center text-zinc-400">
+              <p class="text-sm mb-3">Anda belum memiliki produk.</p>
+              <a href="tambah-produk.html" class="px-4 py-2 text-xs font-semibold rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-950">
+                + Tambah Produk Sekarang
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = myProducts.map(p => {
+          const imgUrl = getFullImageUrl(p.imageUrl);
+          return `
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between">
+            <div class="relative w-full aspect-[4/3] bg-zinc-100 dark:bg-zinc-800">
+              ${imgUrl
+                ? `<img src="${imgUrl}" alt="${p.name}" class="w-full h-full object-cover">`
+                : `<div class="w-full h-full flex items-center justify-center text-zinc-400 text-xs">Tanpa Gambar</div>`}
+              <span class="absolute top-2 left-2 px-2 py-0.5 text-[10px] font-semibold rounded bg-white/90 dark:bg-zinc-900/90">${p.category}</span>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-semibold text-sm mb-1">${p.name}</h3>
+                <p class="text-xs text-zinc-500 line-clamp-2 mb-2">${p.description}</p>
+                <div class="text-sm font-bold">${formatRupiah(p.price)}</div>
+              </div>
+              <div class="pt-3 mt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-end gap-2">
+                <button onclick="openEditModal('${p.id}')" class="px-3 py-1.5 text-xs font-medium rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+                  Edit
+                </button>
+                <button onclick="deleteProduct('${p.id}')" class="px-3 py-1.5 text-xs font-medium rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition">
+                  Hapus
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        }).join('');
+      } catch (err) {
+        document.getElementById('myProductsGrid').innerHTML = '<div class="col-span-full py-8 text-center text-red-500 text-xs">Gagal memuat produk.</div>';
+      }
+    }
+
+    async function loadAdminUsers() {
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/users`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        const users = data.data || [];
+        const tbody = document.getElementById('usersTableBody');
+
+        tbody.innerHTML = users.map(u => `
+          <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/30 transition">
+            <td class="py-3 px-4 font-semibold text-zinc-900 dark:text-zinc-100">${u.name}</td>
+            <td class="py-3 px-4 text-zinc-500">${u.email}</td>
+            <td class="py-3 px-4">
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${u.role === 'admin' ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-950' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300'}">
+                ${u.role.toUpperCase()}
+              </span>
+            </td>
+            <td class="py-3 px-4 text-zinc-400">${new Date(u.createdAt).toLocaleDateString('id-ID')}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        document.getElementById('usersTableBody').innerHTML = '<tr><td colspan="4" class="p-4 text-center text-red-500">Gagal memuat pengguna</td></tr>';
+      }
+    }
+
+    function switchTab(tab) {
+      const btnProd = document.getElementById('tabMyProducts');
+      const btnUsers = document.getElementById('tabUsers');
+      const secProd = document.getElementById('sectionMyProducts');
+      const secUsers = document.getElementById('sectionUsers');
+
+      if (tab === 'myProducts') {
+        btnProd.className = 'px-4 py-2 text-xs font-semibold rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 transition flex items-center gap-1.5';
+        btnUsers.className = 'px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 transition flex items-center gap-1.5';
+        secProd.classList.remove('hidden');
+        secUsers.classList.add('hidden');
+      } else {
+        btnUsers.className = 'px-4 py-2 text-xs font-semibold rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 transition flex items-center gap-1.5';
+        btnProd.className = 'px-4 py-2 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 transition flex items-center gap-1.5';
+        secUsers.classList.remove('hidden');
+        secProd.classList.add('hidden');
+      }
+    }
+
+    // Edit modal
+    function openEditModal(productId) {
+      const p = allProducts.find(item => item.id === productId);
+      if (!p) return;
+
+      document.getElementById('editProductId').value = p.id;
+      document.getElementById('editName').value = p.name;
+      document.getElementById('editCategory').value = p.category;
+      document.getElementById('editPrice').value = p.price;
+      document.getElementById('editDescription').value = p.description;
+
+      document.getElementById('editModal').classList.remove('hidden');
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').classList.add('hidden');
+    }
+
+    document.getElementById('editProductForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const saveBtn = document.getElementById('saveEditBtn');
+      saveBtn.disabled = true;
+      saveBtn.innerText = 'Menyimpan...';
+
+      const id = document.getElementById('editProductId').value;
+      const payload = {
+        name: document.getElementById('editName').value.trim(),
+        category: document.getElementById('editCategory').value.trim(),
+        price: Number(document.getElementById('editPrice').value),
+        description: document.getElementById('editDescription').value.trim()
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/api/products/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          closeEditModal();
+          showAlert('Produk berhasil diperbarui!', 'success');
+          await loadMyProducts();
+        } else {
+          alert(data.message || 'Gagal update produk');
+        }
+      } catch (err) {
+        alert('Terjadi kesalahan koneksi');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerText = 'Simpan Perubahan';
+      }
+    });
+
+    async function deleteProduct(id) {
+      if (!confirm('Apakah Anda yakin ingin menghapus produk ini?')) return;
+      try {
+        const res = await fetch(`${API_BASE}/api/products/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success) {
+          showAlert('Produk berhasil dihapus!', 'success');
+          await loadMyProducts();
+        } else {
+          showAlert(data.message || 'Gagal menghapus', 'error');
+        }
+      } catch (err) {
+        showAlert('Kesalahan koneksi', 'error');
+      }
+    }
+
+    function showAlert(msg, type) {
+      const a = document.getElementById('statusAlert');
+      a.className = type === 'success'
+        ? 'mb-6 p-4 rounded-xl text-xs bg-zinc-900 text-white dark:bg-white dark:text-zinc-950'
+        : 'mb-6 p-4 rounded-xl text-xs bg-red-50 text-red-600 border border-red-200';
+      a.innerText = msg;
+      a.classList.remove('hidden');
+      setTimeout(() => a.classList.add('hidden'), 3000);
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    }
+
+    initAccount();
+  </script>
+</body>
+</html>

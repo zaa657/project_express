@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tambah Produk — Store Ari</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 min-h-screen flex flex-col justify-between transition-colors duration-200 pb-16 md:pb-0">
+
+  <!-- ================= TOP UNIFIED NAVBAR ================= -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0 group">
+        <div class="w-9 h-9 rounded-xl overflow-hidden shadow-sm border border-zinc-200 dark:border-zinc-800 group-hover:scale-105 transition-transform flex-shrink-0 bg-white">
+          <img src="logo.jpg" alt="Store Ari" class="w-full h-full object-cover">
+        </div>
+        <span class="font-bold tracking-tight text-base sm:text-lg">STORE <span class="text-zinc-400 dark:text-zinc-500 font-normal">ARI</span></span>
+      </a>
+
+      <!-- Desktop Navigation Links (With Matching Icons) -->
+      <nav class="hidden md:flex items-center gap-1.5 flex-shrink-0">
+        <!-- Katalog -->
+        <a href="index.html" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+          </svg>
+          <span>Katalog</span>
+        </a>
+
+        <!-- Tambah Produk (Active) -->
+        <a href="tambah-produk.html" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>Tambah Produk</span>
+        </a>
+
+        <!-- Akun Saya -->
+        <a href="akun.html" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          <span>Akun Saya</span>
+        </a>
+      </nav>
+
+      <!-- Right Controls -->
+      <div class="flex items-center gap-3">
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" title="Ganti Tema" class="p-2 rounded-xl text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 transition">
+          <svg id="sunIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+          <svg id="moonIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+        </button>
+
+        <a href="index.html" class="text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span class="hidden sm:inline">Katalog</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border-t border-zinc-200 dark:border-zinc-800 px-6 py-2.5 flex items-center justify-around shadow-lg">
+    <a href="index.html" class="flex flex-col items-center gap-1 text-[11px] font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+      <span>Katalog</span>
+    </a>
+    <a href="tambah-produk.html" class="flex flex-col items-center gap-1 text-[11px] font-semibold text-zinc-900 dark:text-white">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span>Tambah</span>
+    </a>
+    <a href="akun.html" class="flex flex-col items-center gap-1 text-[11px] font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+      <span>Akun</span>
+    </a>
+  </nav>
+
+  <!-- ================= CENTER CONTENT ================= -->
+  <main class="flex-1 max-w-2xl w-full mx-auto px-4 py-8">
+    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-sm">
+      
+      <div class="mb-6 flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-bold tracking-tight">Tambah Produk Baru</h1>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Produk akan disimpan ke database MySQL dan foto diunggah ke Cloudinary.</p>
+        </div>
+        <div class="w-10 h-10 rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+      </div>
+
+      <!-- Feedback Alert -->
+      <div id="statusAlert" class="hidden mb-5 p-3.5 rounded-xl text-xs border"></div>
+
+      <!-- Form -->
+      <form id="addProductForm" class="space-y-4">
+        <!-- Nama Produk -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1.5">Nama Produk *</label>
+          <input
+            id="name"
+            type="text"
+            required
+            placeholder="Contoh: Keyboard Mechanical RGB"
+            class="w-full px-3.5 py-2.5 text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 focus:border-zinc-900 dark:focus:border-white focus:outline-none transition"
+          />
+        </div>
+
+        <!-- Baris Kategori & Harga -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1.5">Kategori *</label>
+            <select
+              id="category"
+              required
+              class="w-full px-3.5 py-2.5 text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 focus:border-zinc-900 dark:focus:border-white focus:outline-none transition"
+            >
+              <option value="Elektronik">Elektronik</option>
+              <option value="Pakaian">Pakaian</option>
+              <option value="Audio">Audio</option>
+              <option value="Aksesoris">Aksesoris</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1.5">Harga (IDR) *</label>
+            <input
+              id="price"
+              type="number"
+              required
+              min="1000"
+              step="500"
+              placeholder="Contoh: 350000"
+              class="w-full px-3.5 py-2.5 text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 focus:border-zinc-900 dark:focus:border-white focus:outline-none transition"
+            />
+          </div>
+        </div>
+
+        <!-- Deskripsi Produk -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1.5">Deskripsi Produk *</label>
+          <textarea
+            id="description"
+            rows="3"
+            required
+            placeholder="Jelaskan spesifikasi, kondisi, atau keunggulan produk Anda..."
+            class="w-full px-3.5 py-2.5 text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 focus:border-zinc-900 dark:focus:border-white focus:outline-none transition"
+          ></textarea>
+        </div>
+
+        <!-- Foto Produk Upload & Preview -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1.5">Foto Produk (Opsional)</label>
+          
+          <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl hover:border-zinc-400 dark:hover:border-zinc-600 transition cursor-pointer relative bg-zinc-50/50 dark:bg-zinc-800/30">
+            <input id="imageFile" type="file" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+            
+            <div id="uploadPrompt" class="space-y-1 text-center">
+              <svg class="mx-auto h-8 w-8 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <div class="text-xs text-zinc-600 dark:text-zinc-400">
+                <span class="font-semibold text-zinc-900 dark:text-white">Pilih file</span> atau seret foto ke sini
+              </div>
+              <p class="text-[10px] text-zinc-400">PNG, JPG, WEBP hingga 5MB</p>
+            </div>
+
+            <!-- Preview image when selected -->
+            <div id="previewContainer" class="hidden text-center">
+              <img id="imagePreview" src="" alt="Preview" class="max-h-44 rounded-xl mx-auto mb-2 object-cover border border-zinc-200 dark:border-zinc-700" />
+              <button type="button" id="removeImgBtn" class="text-[11px] text-red-500 hover:underline">Hapus / Ganti Foto</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Aksi -->
+        <div class="pt-4 flex items-center justify-end gap-3 border-t border-zinc-100 dark:border-zinc-800/80">
+          <a href="index.html" class="px-4 py-2.5 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+            Batal
+          </a>
+          <button
+            id="submitBtn"
+            type="submit"
+            class="px-5 py-2.5 text-xs font-semibold rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 hover:opacity-90 transition active:scale-[0.99] flex items-center gap-2 shadow-sm"
+          >
+            <span>Simpan Produk</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+  <footer class="py-4 text-center text-[11px] text-zinc-400">
+    Store Ari &copy; 2026
+  </footer>
+
+  <script>
+    // Smart API Base URL: Auto-detects port 3000 vs Live Server port 5500
+    const API_BASE = window.location.port === '3000' ? '' : 'http://localhost:3000';
+
+    // Theme toggle
+    const htmlEl = document.documentElement;
+    const themeBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        htmlEl.classList.add('dark');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        htmlEl.classList.remove('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    const savedTheme = localStorage.getItem('theme');
+    applyTheme(savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+    themeBtn.addEventListener('click', () => applyTheme(!htmlEl.classList.contains('dark')));
+
+    // Check login auth
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Anda harus login terlebih dahulu untuk menambah produk!');
+      window.location.href = 'login.html';
+    }
+
+    // Image preview handler
+    const fileInput = document.getElementById('imageFile');
+    const uploadPrompt = document.getElementById('uploadPrompt');
+    const previewContainer = document.getElementById('previewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+    const removeImgBtn = document.getElementById('removeImgBtn');
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          imagePreview.src = event.target.result;
+          uploadPrompt.classList.add('hidden');
+          previewContainer.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    removeImgBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput.value = '';
+      imagePreview.src = '';
+      previewContainer.classList.add('hidden');
+      uploadPrompt.classList.remove('hidden');
+    });
+
+    // Form submission
+    const form = document.getElementById('addProductForm');
+    const statusAlert = document.getElementById('statusAlert');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusAlert.classList.add('hidden');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Mengunggah ke Cloudinary...';
+
+      const formData = new FormData();
+      formData.append('name', document.getElementById('name').value.trim());
+      formData.append('price', document.getElementById('price').value);
+      formData.append('category', document.getElementById('category').value);
+      formData.append('description', document.getElementById('description').value.trim());
+
+      const file = fileInput.files[0];
+      if (file) {
+        formData.append('image', file);
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/products`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          body: formData
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          statusAlert.className = 'mb-5 p-3.5 rounded-xl text-xs border bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 border-transparent';
+          statusAlert.innerText = 'Berhasil! Mengalihkan ke katalog...';
+          statusAlert.classList.remove('hidden');
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1000);
+        } else {
+          statusAlert.className = 'mb-5 p-3.5 rounded-xl text-xs border bg-red-50 text-red-600 border-red-200 dark:bg-red-950/50 dark:text-red-400 dark:border-red-900';
+          statusAlert.innerText = data.message || 'Gagal menambahkan produk';
+          statusAlert.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Simpan Produk';
+        }
+      } catch (err) {
+        statusAlert.className = 'mb-5 p-3.5 rounded-xl text-xs border bg-red-50 text-red-600 border-red-200 dark:bg-red-950/50 dark:text-red-400 dark:border-red-900';
+        statusAlert.innerText = 'Gagal menghubungi server backend di http://localhost:3000. Pastikan server aktif!';
+        statusAlert.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Simpan Produk';
+      }
+    });
+  </script>
+</body>
+</html>
